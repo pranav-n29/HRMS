@@ -1,0 +1,91 @@
+# HRMS
+This Is DATABASE code
+Dayflow - Human Resource Management System
+CREATE DATABASE dayflow_hrms;
+USE dayflow_hrms;
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  employee_id VARCHAR(20) UNIQUE,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  role ENUM('employee','admin') NOT NULL,
+  phone VARCHAR(15),
+  address TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE attendance (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  date DATE NOT NULL,
+  check_in TIME,
+  check_out TIME,
+  status ENUM('Present','Absent','Half-day','Leave') DEFAULT 'Present',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE leaves (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  leave_type ENUM('Paid','Sick','Unpaid') NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  reason TEXT,
+  status ENUM('Pending','Approved','Rejected') DEFAULT 'Pending',
+  admin_comment TEXT,
+  applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE payroll (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  basic_salary INT NOT NULL,
+  allowances INT DEFAULT 0,
+  deductions INT DEFAULT 0,
+  net_salary INT NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+INSERT INTO users 
+(employee_id,name,email,password,role,phone,address)
+VALUES
+('EMP001','Rahul','emp@dayflow.com','1234','employee','9999999999','Rajkot'),
+('HR001','Anita','hr@dayflow.com','1234','admin','8888888888','Ahmedabad');
+INSERT INTO payroll 
+(user_id,basic_salary,allowances,deductions,net_salary)
+VALUES
+(1,30000,5000,2000,33000);
+
+	SELECT * FROM users;
+SELECT * FROM payroll;
+INSERT INTO attendance
+(user_id, date, check_in, status)
+VALUES
+(1, CURDATE(), '09:30:00', 'Present');
+INSERT INTO attendance
+(user_id, date, check_in, check_out, status)
+VALUES
+(1, '2026-01-01', '09:20:00', '18:00:00', 'Present');
+INSERT INTO leaves
+(user_id, leave_type, start_date, end_date, reason)
+VALUES
+(1, 'Paid', '2026-02-01', '2026-02-02', 'Personal work');
+UPDATE leaves
+SET status = 'Approved',
+    admin_comment = 'Approved by HR'
+WHERE id = 1;
+SELECT id, employee_id, name, email
+FROM users
+WHERE role = 'employee';
+SELECT u.name, a.date, a.status
+FROM attendance a
+JOIN users u ON a.user_id = u.id;
+SELECT u.name, p.basic_salary, p.allowances, p.deductions, p.net_salary
+FROM payroll p
+JOIN users u ON p.user_id = u.id
+WHERE u.id = 1;
+
+
+
+
+
