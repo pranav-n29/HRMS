@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- MENU -->
+<div id="menu"></div>
+
+<div class="main">
+  <h2>Employee Dashboard</h2>
+
+  <!-- SUMMARY CARDS -->
+  <div class="cards">
+    <div class="card">Attendance Today: <b id="todayStatus">Present</b></div>
+    <div class="card">Leaves Left: <b id="leavesLeft">4</b></div>
+    <div class="card">Net Salary: <b>₹39,500</b></div>
+  </div>
+
+  <!-- PROFILE SNAPSHOT -->
+  <div class="section">
+    <h3>Profile</h3>
+    <p><b>Name:</b> Arun Kumar</p>
+    <p><b>Employee ID:</b> EMP13456</p>
+    <p><b>Role:</b> Employee</p>
+  </div>
+
+  <!-- LEAVE STATUS -->
+  <div class="section">
+    <h3>Leave Status</h3>
+    <table>
+      <tr><th>Type</th><th>Status</th></tr>
+      <tr><td>Paid Leave</td><td>Approved</td></tr>
+      <tr><td>Sick Leave</td><td>Pending</td></tr>
+    </table>
+  </div>
+
+  <!-- SALARY BREAKDOWN -->
+  <div class="section">
+    <h3>Salary Breakdown</h3>
+    <ul>
+      <li>Basic: ₹45,000</li>
+      <li>PF: ₹5,400</li>
+      <li>Tax: ₹100</li>
+      <li><b>Net: ₹39,500</b></li>
+    </ul>
+  </div>
+</div>
+<div class="charts">
+  <canvas id="attendanceChart"></canvas>
+  <canvas id="salaryChart"></canvas>
+</div>
+
+<script>
+/* ATTENDANCE PIE */
+new Chart(document.getElementById("attendanceChart"), {
+  type: "pie",
+  data: {
+    labels: ["Present", "Absent", "Half Day"],
+    datasets: [{
+      data: [18, 2, 1],
+      backgroundColor: ["green", "red", "orange"]
+    }]
+  }
+});
+
+/* SALARY BAR */
+new Chart(document.getElementById("salaryChart"), {
+  type: "bar",
+  data: {
+    labels: ["Basic", "PF", "Tax", "Net"],
+    datasets: [{
+      data: [45000, 5400, 100, 39500],
+      backgroundColor: ["#0d6efd", "#ffc107", "#dc3545", "#198754"]
+    }]
+  }
+});
+</script>
+
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("menu").innerHTML = html);
+  /* ATTENDANCE PIE */
+new Chart(document.getElementById("attendanceChart"), {
+  type: "pie",
+  data: {
+    labels: ["Present", "Absent", "Half Day"],
+    datasets: [{
+      data: [18, 2, 1],
+      backgroundColor: ["green", "red", "orange"]
+    }]
+  }
+});
+
+/* SALARY BAR */
+new Chart(document.getElementById("salaryChart"), {
+  type: "bar",
+  data: {
+    labels: ["Basic", "PF", "Tax", "Net"],
+    datasets: [{
+      data: [45000, 5400, 100, 39500],
+      backgroundColor: ["#0d6efd", "#ffc107", "#dc3545", "#198754"]
+    }]
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employees</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="menu"></div>
+
+<div class="main">
+  <h2>Employees</h2>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Email</th>
+    </tr>
+    <tr>
+      <td>EMP001</td>
+      <td>Arun Kumar</td>
+      <td>Employee</td>
+      <td>arun@gmail.com</td>
+    </tr>
+  </table>
+</div>
+
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("menu").innerHTML = html);
+</script>
+
+</body>
+</html>

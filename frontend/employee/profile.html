@@ -1,0 +1,31 @@
+<script src="../js/common.js"></script>
+<script>requireAuth("employee");</script>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow p-3">
+        <h5>Employee Profile</h5>
+        <p>Name: <b id="name"></b></p>
+        <p>Email: <b id="email"></b></p>
+        <p>Role: <b>Employee</b></p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow p-3">
+        <h5>Bank Details</h5>
+        <p>Bank: SBI</p>
+        <p>Account: 1234567890</p>
+        <p>IFSC: SBIN0001234</p>
+        <p>Type: Savings</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const user = getUser();
+name.innerText = user.name;
+email.innerText = user.email;
+</script>

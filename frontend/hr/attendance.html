@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="menu"></div>
+
+<div class="main">
+  <h2>Attendance Today</h2>
+
+  <table>
+    <tr>
+      <th>Employee</th>
+      <th>Status</th>
+      <th>Check In</th>
+    </tr>
+    <tr>
+      <td>Arun Kumar</td>
+      <td>Present</td>
+      <td>09:30 AM</td>
+    </tr>
+  </table>
+</div>
+
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("menu").innerHTML = html);
+</script>
+
+</body>
+</html>

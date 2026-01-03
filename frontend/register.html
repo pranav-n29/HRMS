@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register – Dayflow HRMS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow" style="width:420px;">
+    <h4 class="text-center mb-3">Register</h4>
+
+    <input id="employee_id" class="form-control mb-2" placeholder="Employee ID">
+    <input id="name" class="form-control mb-2" placeholder="Full Name">
+    <input id="email" class="form-control mb-2" placeholder="Email">
+    <input id="password" type="password" class="form-control mb-2" placeholder="Password">
+
+    <select id="role" class="form-control mb-2">
+      <option value="">Select Role</option>
+      <option value="employee">Employee</option>
+      <option value="admin">HR / Admin</option>
+    </select>
+
+    <input id="phone" class="form-control mb-2" placeholder="Phone">
+    <input id="address" class="form-control mb-3" placeholder="Address">
+
+    <button class="btn btn-primary w-100" onclick="register()">Register</button>
+
+    <div class="text-center mt-3">
+      <a href="index.html">Back to Login</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidPassword(password) {
+  return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password);
+}
+
+function isValidPhone(phone) {
+  return /^[0-9]{10}$/.test(phone);
+}
+
+function register() {
+  const employee_id = employee_idEl.value.trim();
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const password = passwordEl.value.trim();
+  const role = roleEl.value;
+  const phone = phoneEl.value.trim();
+  const address = addressEl.value.trim();
+
+  if (!employee_id || !name || !email || !password || !role || !phone || !address) {
+    alert("All fields are required");
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    alert("Enter a valid email address");
+    return;
+  }
+
+  if (!isValidPassword(password)) {
+    alert("Password must be at least 6 characters with letters and numbers");
+    return;
+  }
+
+  if (!isValidPhone(phone)) {
+    alert("Phone number must be 10 digits");
+    return;
+  }
+
+  fetch("/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      employee_id,
+      name,
+      email,
+      password,
+      role,
+      phone,
+      address
+    })
+  })
+  .then(async res => {
+    const text = await res.text();
+    if (!res.ok) throw new Error(text);
+    alert(text);
+    location.href = "index.html";
+  })
+  .catch(err => alert(err.message));
+}
+
+/* ELEMENT REFERENCES */
+const employee_idEl = document.getElementById("employee_id");
+const nameEl = document.getElementById("name");
+const emailEl = document.getElementById("email");
+const passwordEl = document.getElementById("password");
+const roleEl = document.getElementById("role");
+const phoneEl = document.getElementById("phone");
+const addressEl = document.getElementById("address");
+</script>
+
+</body>
+</html>

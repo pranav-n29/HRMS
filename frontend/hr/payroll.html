@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payroll</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="menu"></div>
+
+<div class="main">
+  <h2>Payroll</h2>
+
+  <table>
+    <tr>
+      <th>Employee</th>
+      <th>Basic</th>
+      <th>PF</th>
+      <th>Tax</th>
+      <th>Net</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>Arun Kumar</td>
+      <td>₹45,000</td>
+      <td>₹5,400</td>
+      <td>₹100</td>
+      <td>₹39,500</td>
+      <td>Paid</td>
+    </tr>
+  </table>
+</div>
+
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("menu").innerHTML = html);
+</script>
+
+</body>
+</html>

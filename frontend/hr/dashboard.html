@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HR Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div id="menu"></div>
+
+<div class="main">
+  <h2>HR Dashboard</h2>
+
+  <!-- SUMMARY CARDS -->
+  <div class="cards">
+    <div class="card">Total Employees<br><b>12</b></div>
+    <div class="card">Leaves Pending<br><b>3</b></div>
+    <div class="card">Salary Paid (This Month)<br><b>₹4,80,000</b></div>
+    <div class="card">Attendance Today<br><b>10 / 12</b></div>
+  </div>
+
+  <!-- LEAVE REQUESTS -->
+  <div class="section">
+    <h3>Leave Requests</h3>
+    <table>
+      <tr>
+        <th>Employee</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>Arun Kumar</td>
+        <td>Paid</td>
+        <td>Pending</td>
+        <td>
+          <button>Approve</button>
+          <button>Reject</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- PAYROLL SUMMARY -->
+  <div class="section">
+    <h3>Payroll Summary</h3>
+    <ul>
+      <li>Total PF Deducted: ₹48,000</li>
+      <li>Total Tax Deducted: ₹22,000</li>
+      <li><b>Net Salary Credited: ₹4,10,000</b></li>
+    </ul>
+  </div>
+</div>
+<div class="charts">
+  <canvas id="employeeCount"></canvas>
+  <canvas id="salarySummary"></canvas>
+</div>
+
+<script>
+fetch("menu.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("menu").innerHTML = html);
+  new Chart(employeeCount, {
+  type: "doughnut",
+  data: {
+    labels: ["Present", "Absent"],
+    datasets: [{
+      data: [10, 2],
+      backgroundColor: ["green", "red"]
+    }]
+  }
+});
+
+new Chart(salarySummary, {
+  type: "bar",
+  data: {
+    labels: ["Total Salary", "PF", "Tax", "Net"],
+    datasets: [{
+      data: [480000, 48000, 22000, 410000],
+      backgroundColor: ["#0d6efd", "#ffc107", "#dc3545", "#198754"]
+    }]
+  }
+});
+</script>
+
+</body>
+</html>

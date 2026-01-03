@@ -1,0 +1,35 @@
+<h2>Apply Leave</h2>
+
+<select id="leave_type">
+  <option>Paid</option>
+  <option>Sick</option>
+  <option>Unpaid</option>
+</select>
+
+<input type="date" id="start_date">
+<input type="date" id="end_date">
+
+<textarea id="reason" placeholder="Reason"></textarea>
+
+<button onclick="applyLeave()">Apply Leave</button>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+
+function applyLeave() {
+  fetch("/leave/apply", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      user_id: user.id,
+      leave_type: leave_type.value,
+      start_date: start_date.value,
+      end_date: end_date.value,
+      reason: reason.value
+    })
+  })
+  .then(res => res.text())
+  .then(msg => alert(msg))
+  .catch(() => alert("Failed"));
+}
+</script>
